@@ -8,6 +8,7 @@ This package allows :
 * Return Documents from a Collection with a Filter
 * Insert Documents in a Collection
 * Update Documents in a Collection
+* Delete Documents in a Collection
 
 ## Prerequisites
 
@@ -45,5 +46,6 @@ To use this module you must initialize 3 variables:
 * **GetCollectionAll(Coll string) ([]bson.M, error)** : *Reading All Documents from a Collection, use return an object of type []bson.M*
 * **GetCountDoc(Coll string, req bson.M) (int64, error)** : *Return number of document in Collection, takes as parameters the name of the* *collection (type string) and filter (type bson.M) ex : **req:=bson.M{"_id": id}***
 * **GetReqCollectionAll(Coll string, req bson.M) ([]bson.M, error)** : *Return Documents from a Collection with a Filter,takes as parameters the name of the* *collection (type string) and filter (type bson.M)*
-*  **InsertCollection(Coll string, InsertD interface{}) (*mongo.InsertOneResult, error)** : *Insert Documents in a Collection, takes as parameters the name of the collection (type string) and the values to insert (type interface)*
-
+*  **InsertCollection(Coll string, InsertD interface{}) (mongo.InsertOneResult, error)** : *Insert Documents in a Collection, takes as parameters the name of the collection (type string) and the values to insert (type interface)*
+* **RemoveCollection(Coll string, IDDist string) (mongo.DeleteResult, error)** : *Remove Documents in a Collection,takes as parameters the name of the collection (type string) and the _id of document*
+* **UpdateCollection(Coll string, IDDist int, request bson.M) (mongo.UpdateResult, error)** : *Update Documents in a Collection,akes as parameters the name of the collection (type string) and the _id of document*
