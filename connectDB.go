@@ -220,3 +220,23 @@ func RemoveCollection(Coll string, IDDist string) (*mongo.DeleteResult, error) {
 	return result, nil
 
 }
+
+//UpdateCollection : Update Documents in a Collection
+func UpdateCollection(Coll string, IDDist int, request bson.M) (*mongo.UpdateResult, error) {
+
+	databaseInstance, err := GetMongoClient()
+	if err != nil {
+		clientInstanceError = err
+	}
+	ctx, _ := context.WithTimeout(context.Background(), 15*time.Second)
+
+	regionCollection := databaseInstance.Collection(Coll)
+
+	update, err := regionCollection.UpdateOne(ctx, bson.M{"distillerID": IDDist}, request)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	return update, nil
+
+}
