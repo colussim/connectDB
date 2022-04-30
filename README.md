@@ -1,5 +1,6 @@
 # connectDB
 This is a simple go package for a MongoDB database that I needed for a project.
+
 This package allows :
 * Connect to MongoDB
 * Reading All Documents from a Collection
@@ -33,10 +34,14 @@ go install github.com/colussim/connectDB
 
 To use this module you must initialize 3 variables:
 * var CONNECTIONSTRING = Connection String URI :
-mongodb://[username:password@]host1[:port1][/[defaultauthdb][?options]]
-* var DB = Name of the database
-* var ISSUES = Name of the collection
+  
+*mongodb://[username:password@]host1[:port1][/[defaultauthdb][?options]]*
+* var DB = *Name of the database*
+* var ISSUES = *Name of the collection*
 
 ### Functions
 
-* GetMongoClient() : Return mongodb connection use variable CONNECTIONSTRING
+* **GetMongoClient()** : *Return mongodb connection (*mongo.Client),use variable CONNECTIONSTRING*
+* **GetCollectionAll(Coll string) ([]bson.M, error)** : *Reading All Documents from a Collection, use return an object of type []bson.M*
+* **GetCountDoc(Coll string, req bson.M) (int64, error)** : *Return number of document in Collection, takes as parameters the name of the collection (type string) and filter (type bson.M) ex : **req:=bson.M{"_id": id}** *
+
