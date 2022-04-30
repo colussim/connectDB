@@ -4,10 +4,10 @@
 /*  @package     :   										       */
 /*  @subpackage  : connectDB									   */
 /*  @access      :												   */
-/*  @paramtype   : 												   */
+/*  @paramtype   : 	CONNECTIONSTRING,DB,ISSUES				       */
 /*  @argument    :												   */
 /*  @description : Functions to connect MongoDB database		   */
-/*                                                                 */
+/*                 and List, ADD, Delete                                                 */
 /*				                                                   */
 /*																   */
 /*  @author Emmanuel COLUSSI									   */
@@ -46,7 +46,7 @@ type Logmessage struct {
 	DateEvt    time.Time          `json:"dateevt" bson:"dateevt"`
 }
 
-//GetMongoClient - Return mongodb connection to work with
+//GetMongoClient : Return mongodb connection to work with
 func GetMongoClient() (*mongo.Database, error) {
 	//Perform connection creation operation only once.
 	mongoOnce.Do(func() {
@@ -69,6 +69,7 @@ func GetMongoClient() (*mongo.Database, error) {
 	return databaseInstance, clientInstanceError
 }
 
+//GetCollectionAll : Reading All Documents from a Collection
 func GetCollectionAll(Coll string) ([]bson.M, error) {
 
 	databaseInstance, err := GetMongoClient()
@@ -101,6 +102,8 @@ func GetCollectionAll(Coll string) ([]bson.M, error) {
 
 }
 
+// GetCountDoc : Return number of document in Collection
+
 func GetCountDoc(Coll string, req bson.M) (int64, error) {
 	databaseInstance, err := GetMongoClient()
 	if err != nil {
@@ -119,6 +122,7 @@ func GetCountDoc(Coll string, req bson.M) (int64, error) {
 
 }
 
+// GetReqCollectionAll : Return Documents from a Collection with a Filter
 func GetReqCollectionAll(Coll string, req bson.M) ([]bson.M, error) {
 
 	databaseInstance, err := GetMongoClient()
@@ -149,6 +153,7 @@ func GetReqCollectionAll(Coll string, req bson.M) ([]bson.M, error) {
 	return collection1, clientInstanceError
 
 }
+
 func SearchDist(Coll string, search string) ([]bson.M, error) {
 
 	var collection1 []bson.M
@@ -177,6 +182,7 @@ func SearchDist(Coll string, search string) ([]bson.M, error) {
 
 }
 
+// InsertCollection : Insert Documents in a Collection
 func InsertCollection(Coll string, InsertD interface{}) (*mongo.InsertOneResult, error) {
 
 	databaseInstance, err := GetMongoClient()
@@ -193,6 +199,7 @@ func InsertCollection(Coll string, InsertD interface{}) (*mongo.InsertOneResult,
 
 }
 
+// RemoveCollection : Remove Documents in a Collection
 func RemoveCollection(Coll string, IDDist string) (*mongo.DeleteResult, error) {
 
 	databaseInstance, err := GetMongoClient()
