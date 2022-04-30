@@ -36,13 +36,6 @@ var clientInstanceError error
 
 var mongoOnce sync.Once
 
-// Declare a Const for mongodb connexion
-/*const (
-	CONNECTIONSTRING = "mongodb://repmonitor:Demos2022@localhost:27017/?authMechanism=SCRAM-SHA-256&authSource=repmonitor"
-	DB               = "repmonitor"
-	ISSUES           = "loggithub"
-)*/
-
 type Logmessage struct {
 	ID         primitive.ObjectID `json:"_id" bson:"_id"`
 	Org        string             `json:"org" bson:"org"`
@@ -211,31 +204,12 @@ func RemoveCollection(Coll string, IDDist string) (*mongo.DeleteResult, error) {
 	regionCollection := databaseInstance.Collection(Coll)
 	IDDist1, _ := strconv.Atoi(IDDist)
 
-	result, err := regionCollection.DeleteOne(ctx, bson.M{"distillerID": IDDist1})
+	result, err := regionCollection.DeleteOne(ctx, bson.M{"_id": IDDist1})
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	return result, nil
-
-}
-
-func UpdateCollection(Coll string, IDDist int, request bson.M) (*mongo.UpdateResult, error) {
-
-	databaseInstance, err := GetMongoClient()
-	if err != nil {
-		clientInstanceError = err
-	}
-	ctx, _ := context.WithTimeout(context.Background(), 15*time.Second)
-
-	regionCollection := databaseInstance.Collection(Coll)
-
-	update, err := regionCollection.UpdateOne(ctx, bson.M{"distillerID": IDDist}, request)
-
-	if err != nil {
-		log.Fatal(err)
-	}
-	return update, nil
 
 }
