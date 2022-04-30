@@ -41,7 +41,7 @@ To use this module you must initialize 3 variables:
 
 ### Functions
 
-* **GetMongoClient()** : *Return mongodb connection (*mongo.Client),use variable CONNECTIONSTRING*
+* **GetMongoClient()** : *Return mongodb connection (mongo.Client),use variable CONNECTIONSTRING*
 * **GetCollectionAll(Coll string) ([]bson.M, error)** : *Reading All Documents from a Collection, use return an object of type []bson.M*
-* **GetCountDoc(Coll string, req bson.M) (int64, error)** : *Return number of document in Collection, takes as parameters the name of the collection (type string) and filter (type bson.M) ex : **req:=bson.M{"_id": id}** *
+* **GetCountDoc(Coll string, req bson.M) (int64, error)** : *Return number of document in Collection, takes as parameters the name of the* *collection (type string) and filter (type bson.M) ex : **req:=bson.M{"_id": id}** *
 
