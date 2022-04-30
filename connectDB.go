@@ -37,11 +37,11 @@ var clientInstanceError error
 var mongoOnce sync.Once
 
 // Declare a Const for mongodb connexion
-const (
+/*const (
 	CONNECTIONSTRING = "mongodb://repmonitor:Demos2022@localhost:27017/?authMechanism=SCRAM-SHA-256&authSource=repmonitor"
 	DB               = "repmonitor"
 	ISSUES           = "loggithub"
-)
+)*/
 
 type Logmessage struct {
 	ID         primitive.ObjectID `json:"_id" bson:"_id"`
