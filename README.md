@@ -13,10 +13,10 @@ This package allows :
 ## Prerequisites
 
 Before you get started, you’ll need to have these things:
-* The official [MongoDB Go Driver] (https://github.com/mongodb/mongo-go-driver/) 
+* The official [MongoDB Go Driver](https://github.com/mongodb/mongo-go-driver/) 
 * The Package bson is an implementation of the BSON specification for GO : [mgo.v2/bson](https://gopkg.in/mgo.v2/bson)
 
-# Initial setup
+## Initial setup
 
 Install the MongoDB Go Driver :
 ```
@@ -141,5 +141,10 @@ if updateErr != nil {
 		}
 ```
 
+## Resources :
+
+[MongoDB Go Driver](https://github.com/mongodb/mongo-go-driver/)
+[Documentation MongoDB Go Driver](https://pkg.go.dev/go.mongodb.org/mongo-driver/mongo)
+[BSON specification for GO](https://gopkg.in/mgo.v2/bson)
 
 
