@@ -43,7 +43,7 @@ To use this module you must initialize 3 variables:
 ### Functions
 
 **GetMongoClient()** : *Return mongodb connection (mongo.Client),use variable CONNECTIONSTRING*
-```go:
+```go
 var CONNECTIONSTRING = "mongodb://user:password@localhost:27017/?authMechanism=SCRAM-SHA-256&authSource=repmonitor"
 databaseInstance, err := GetMongoClient()
 ```
