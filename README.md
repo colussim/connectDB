@@ -42,10 +42,17 @@ To use this module you must initialize 3 variables:
 
 ### Functions
 
-* **GetMongoClient()** : *Return mongodb connection (mongo.Client),use variable CONNECTIONSTRING*
+**GetMongoClient()** : *Return mongodb connection (mongo.Client),use variable CONNECTIONSTRING*
+```
+var CONNECTIONSTRING = "mongodb://user:password@localhost:27017/?authMechanism=SCRAM-SHA-256&authSource=repmonitor"
+databaseInstance, err := GetMongoClient()
+```
+  
 * **GetCollectionAll(Coll string) ([]bson.M, error)** : *Reading All Documents from a Collection, use return an object of type []bson.M*
 * **GetCountDoc(Coll string, req bson.M) (int64, error)** : *Return number of document in Collection, takes as parameters the name of the* *collection (type string) and filter (type bson.M) ex : **req:=bson.M{"_id": id}***
 * **GetReqCollectionAll(Coll string, req bson.M) ([]bson.M, error)** : *Return Documents from a Collection with a Filter,takes as parameters the name of the* *collection (type string) and filter (type bson.M)*
 *  **InsertCollection(Coll string, InsertD interface{}) (mongo.InsertOneResult, error)** : *Insert Documents in a Collection, takes as parameters the name of the collection (type string) and the values to insert (type interface)*
 * **RemoveCollection(Coll string, IDDist string) (mongo.DeleteResult, error)** : *Remove Documents in a Collection,takes as parameters the name of the collection (type string) and the _id of document*
 * **UpdateCollection(Coll string, IDDist int, request bson.M) (mongo.UpdateResult, error)** : *Update Documents in a Collection,akes as parameters the name of the collection (type string) and the _id of document*
+
+
