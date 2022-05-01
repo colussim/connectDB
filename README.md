@@ -48,11 +48,98 @@ var CONNECTIONSTRING = "mongodb://user:password@localhost:27017/?authMechanism=S
 databaseInstance, err := GetMongoClient()
 ```
   
-* **GetCollectionAll(Coll string) ([]bson.M, error)** : *Reading All Documents from a Collection, use return an object of type []bson.M*
-* **GetCountDoc(Coll string, req bson.M) (int64, error)** : *Return number of document in Collection, takes as parameters the name of the* *collection (type string) and filter (type bson.M) ex : **req:=bson.M{"_id": id}***
-* **GetReqCollectionAll(Coll string, req bson.M) ([]bson.M, error)** : *Return Documents from a Collection with a Filter,takes as parameters the name of the* *collection (type string) and filter (type bson.M)*
-*  **InsertCollection(Coll string, InsertD interface{}) (mongo.InsertOneResult, error)** : *Insert Documents in a Collection, takes as parameters the name of the collection (type string) and the values to insert (type interface)*
-* **RemoveCollection(Coll string, IDDist string) (mongo.DeleteResult, error)** : *Remove Documents in a Collection,takes as parameters the name of the collection (type string) and the _id of document*
-* **UpdateCollection(Coll string, IDDist int, request bson.M) (mongo.UpdateResult, error)** : *Update Documents in a Collection,akes as parameters the name of the collection (type string) and the _id of document*
+**GetCollectionAll(Coll string) ([]bson.M, error)** : *Reading All Documents from a Collection*
+```go
+Collection := "log"
+EventLogAll, err := connectDB.GetCollectionAll(Collection)
+if err != nil {
+		log.Fatal(err)
+}
+```
+
+**GetCountDoc(Coll string, req bson.M) (int64, error)** : *Return number of document in Collection*
+```go
+var Request1 bson.M
+Collection := "log"
+CollectionLogID := "62671f794c9950ae8189db65"
+
+ExistDoc, err := connectiondb.GetCountDoc(Collection, Request1)
+if err != nil {
+	log.Fatal(err)
+}
+```
+
+**GetReqCollectionAll(Coll string, req bson.M) ([]bson.M, error)** : *Return Documents from a Collection with a Filter*
+```go
+Collection := "log"
+CollectionLogID := "62671f794c9950ae8189db65"
+Request0 := bson.M{"_id": CollectionLogID}
+
+DistillRegion, err := connectiondb.GetReqCollectionAll(Collection, Request0)
+if err != nil {
+	log.Fatal(err)
+}
+```
+
+**InsertCollection(Coll string, InsertD interface{}) (mongo.InsertOneResult, error)** : *Insert Documents in a Collection*
+```go
+type Logmessage1 struct {
+	ID         primitive.ObjectID `json:"_id" bson:"_id"`
+	Org        string             `json:"org" bson:"org"`
+	PusherName string             `json:"pushername" bson:"pushername"`
+	DateEvt    time.Time          `json:"dateevt" bson:"dateevt"`
+	Messages   string             `json:"messages" bson:"messages"`
+}
+
+Collection := "log"
+MessageLog := Logmessage1{
+		ID:         primitive.NewObjectID(),
+		Org:        org,
+		PusherName: sender,
+		DateEvt:    time.Now(),
+		Messages:   "Alert : " ,
+	}
+
+	_, insertErr := connectDB.InsertCollection("Collection", MessageLog)
+	if insertErr != nil {
+		log.Println("⇨ Problem Event not insert in database")
+
+	} else {
+
+		log.Println("⇨ New event: insert in database")
+	}
+```
+
+**RemoveCollection(Coll string, IDDist string) (mongo.DeleteResult, error)** : *Remove Documents in a Collection*
+```go
+Collection := "log"
+CollectionLogID := "62671f794c9950ae8189db65"
+
+result, err := connectiondb.RemoveCollection(Collection, CollectionLogID)
+		
+if err != nil {
+    log.Println("⇨ Error deleted")
+	} else {
+			log.Println("⇨ Record deleted")
+		}
+```
+
+**UpdateCollection(Coll string, IDDist int, request bson.M) (mongo.UpdateResult, error)** : *Update Documents in a Collection*
+```go
+Collection := "log"
+CollectionLogID := "62671f794c9950ae8189db65"
+org :="test"
+name :="test"
+
+update := bson.M{"$set": bson.M{"org": org, "name": name}}
+
+_, updateErr := connectiondb.UpdateCollection(Collection, CollectionLogID, update)
+if updateErr != nil {
+	log.Println("⇨ Record not updated")
+} else {
+	log.Println("⇨ Record updated")		
+		}
+```
+
 
 

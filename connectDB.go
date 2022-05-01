@@ -232,7 +232,7 @@ func UpdateCollection(Coll string, IDDist int, request bson.M) (*mongo.UpdateRes
 
 	regionCollection := databaseInstance.Collection(Coll)
 
-	update, err := regionCollection.UpdateOne(ctx, bson.M{"distillerID": IDDist}, request)
+	update, err := regionCollection.UpdateOne(ctx, bson.M{"_id": IDDist}, request)
 
 	if err != nil {
 		log.Fatal(err)
