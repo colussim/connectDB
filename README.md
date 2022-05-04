@@ -1,3 +1,5 @@
+[![GitHub go.mod Go version of a Go module](https://img.shields.io/github/go-mod/go-version/gomods/athens.svg)](https://github.com/gomods/athens)
+
 # connectDB
 This is a simple go package for a MongoDB database that I needed for a project.
 
@@ -123,6 +125,31 @@ if err != nil {
 			log.Println("⇨ Record deleted")
 		}
 ```
+**RemoveAllCollection(Coll string, IDDist string) (mongo.DeleteResult, error)** : *Remove All Documents in a Collection*
+```go
+func RemoveAllCollection(Coll string) (*mongo.DeleteResult, error) {
+
+	databaseInstance, err := GetMongoClient()
+	if err != nil {
+		clientInstanceError = err
+	}
+	ctx, _ := context.WithTimeout(context.Background(), 15*time.Second)
+
+	regionCollection := databaseInstance.Collection(Coll)
+
+	result, err := regionCollection.DeleteMany(ctx, bson.D{{}})
+
+	regionCollection.DeleteMany(ctx, bson.D{{}})
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return result, nil
+
+}
+```
+
 
 **UpdateCollection(Coll string, IDDist int, request bson.M) (mongo.UpdateResult, error)** : *Update Documents in a Collection*
 ```go
