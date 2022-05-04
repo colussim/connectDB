@@ -240,3 +240,26 @@ func UpdateCollection(Coll string, IDDist int, request bson.M) (*mongo.UpdateRes
 	return update, nil
 
 }
+
+//RemoveAllCollection : Remove All Documents in a Collection
+func RemoveAllCollection(Coll string) (*mongo.DeleteResult, error) {
+
+	databaseInstance, err := GetMongoClient()
+	if err != nil {
+		clientInstanceError = err
+	}
+	ctx, _ := context.WithTimeout(context.Background(), 15*time.Second)
+
+	regionCollection := databaseInstance.Collection(Coll)
+
+	result, err := regionCollection.DeleteMany(ctx, bson.D{{}})
+
+	regionCollection.DeleteMany(ctx, bson.D{{}})
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return result, nil
+
+}
