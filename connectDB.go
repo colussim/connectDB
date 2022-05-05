@@ -254,7 +254,26 @@ func RemoveAllCollection(Coll string) (*mongo.DeleteResult, error) {
 
 	result, err := regionCollection.DeleteMany(ctx, bson.D{{}})
 
-	regionCollection.DeleteMany(ctx, bson.D{{}})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return result, nil
+
+}
+
+//RemoveReqCollection : Remove Documents  with request in a Collection
+func RemoveReqCollection(Coll string, request bson.M) (*mongo.DeleteResult, error) {
+
+	databaseInstance, err := GetMongoClient()
+	if err != nil {
+		clientInstanceError = err
+	}
+	ctx, _ := context.WithTimeout(context.Background(), 15*time.Second)
+
+	regionCollection := databaseInstance.Collection(Coll)
+
+	result, err := regionCollection.DeleteMany(ctx, request)
 
 	if err != nil {
 		log.Fatal(err)
