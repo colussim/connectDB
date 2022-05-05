@@ -36,8 +36,8 @@ var clientInstanceError error
 
 var mongoOnce sync.Once
 
-var CONNECTIONSTRING = ""
-var DB = ""
+//var CONNECTIONSTRING = ""
+//var DB = ""
 
 type Logmessage struct {
 	ID         primitive.ObjectID `json:"_id" bson:"_id"`
