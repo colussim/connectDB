@@ -19,7 +19,6 @@ package connectDB
 import (
 	"context"
 	"log"
-	"strconv"
 	"sync"
 	"time"
 
@@ -209,9 +208,9 @@ func RemoveCollection(Coll string, IDDist string, CONNECTIONSTRING string, DB st
 	ctx, _ := context.WithTimeout(context.Background(), 15*time.Second)
 
 	regionCollection := databaseInstance.Collection(Coll)
-	IDDist1, _ := strconv.Atoi(IDDist)
+	//IDDist1, _ := strconv.Atoi(IDDist)
 
-	result, err := regionCollection.DeleteOne(ctx, bson.M{"_id": IDDist1})
+	result, err := regionCollection.DeleteOne(ctx, bson.M{"_id": IDDist})
 
 	if err != nil {
 		log.Fatal(err)
