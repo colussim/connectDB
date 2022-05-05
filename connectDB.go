@@ -36,9 +36,6 @@ var clientInstanceError error
 
 var mongoOnce sync.Once
 
-//var CONNECTIONSTRING = ""
-//var DB = ""
-
 type Logmessage struct {
 	ID         primitive.ObjectID `json:"_id" bson:"_id"`
 	Org        string             `json:"org" bson:"org"`
@@ -50,7 +47,7 @@ type Logmessage struct {
 }
 
 //GetMongoClient : Return mongodb connection to work with
-func GetMongoClient() (*mongo.Database, error) {
+func GetMongoClient(CONNECTIONSTRING string, DB string) (*mongo.Database, error) {
 	//Perform connection creation operation only once.
 	mongoOnce.Do(func() {
 		// Set client options
@@ -73,9 +70,9 @@ func GetMongoClient() (*mongo.Database, error) {
 }
 
 //GetCollectionAll : Reading All Documents from a Collection
-func GetCollectionAll(Coll string) ([]bson.M, error) {
+func GetCollectionAll(Coll string, CONNECTIONSTRING string, DB string) ([]bson.M, error) {
 
-	databaseInstance, err := GetMongoClient()
+	databaseInstance, err := GetMongoClient(CONNECTIONSTRING, DB)
 	if err != nil {
 		clientInstanceError = err
 	}
@@ -107,8 +104,8 @@ func GetCollectionAll(Coll string) ([]bson.M, error) {
 
 // GetCountDoc : Return number of document in Collection
 
-func GetCountDoc(Coll string, req bson.M) (int64, error) {
-	databaseInstance, err := GetMongoClient()
+func GetCountDoc(Coll string, req bson.M, CONNECTIONSTRING string, DB string) (int64, error) {
+	databaseInstance, err := GetMongoClient(CONNECTIONSTRING, DB)
 	if err != nil {
 		clientInstanceError = err
 	}
@@ -126,9 +123,9 @@ func GetCountDoc(Coll string, req bson.M) (int64, error) {
 }
 
 // GetReqCollectionAll : Return Documents from a Collection with a Filter
-func GetReqCollectionAll(Coll string, req bson.M) ([]bson.M, error) {
+func GetReqCollectionAll(Coll string, req bson.M, CONNECTIONSTRING string, DB string) ([]bson.M, error) {
 
-	databaseInstance, err := GetMongoClient()
+	databaseInstance, err := GetMongoClient(CONNECTIONSTRING, DB)
 	if err != nil {
 		clientInstanceError = err
 	}
@@ -157,11 +154,11 @@ func GetReqCollectionAll(Coll string, req bson.M) ([]bson.M, error) {
 
 }
 
-func SearchDist(Coll string, search string) ([]bson.M, error) {
+func SearchDist(Coll string, search string, CONNECTIONSTRING string, DB string) ([]bson.M, error) {
 
 	var collection1 []bson.M
 
-	databaseInstance, err := GetMongoClient()
+	databaseInstance, err := GetMongoClient(CONNECTIONSTRING, DB)
 	if err != nil {
 		clientInstanceError = err
 	}
@@ -186,9 +183,9 @@ func SearchDist(Coll string, search string) ([]bson.M, error) {
 }
 
 // InsertCollection : Insert Documents in a Collection
-func InsertCollection(Coll string, InsertD interface{}) (*mongo.InsertOneResult, error) {
+func InsertCollection(Coll string, InsertD interface{}, CONNECTIONSTRING string, DB string) (*mongo.InsertOneResult, error) {
 
-	databaseInstance, err := GetMongoClient()
+	databaseInstance, err := GetMongoClient(CONNECTIONSTRING, DB)
 	if err != nil {
 		clientInstanceError = err
 	}
@@ -203,9 +200,9 @@ func InsertCollection(Coll string, InsertD interface{}) (*mongo.InsertOneResult,
 }
 
 // RemoveCollection : Remove Documents in a Collection
-func RemoveCollection(Coll string, IDDist string) (*mongo.DeleteResult, error) {
+func RemoveCollection(Coll string, IDDist string, CONNECTIONSTRING string, DB string) (*mongo.DeleteResult, error) {
 
-	databaseInstance, err := GetMongoClient()
+	databaseInstance, err := GetMongoClient(CONNECTIONSTRING, DB)
 	if err != nil {
 		clientInstanceError = err
 	}
@@ -225,9 +222,9 @@ func RemoveCollection(Coll string, IDDist string) (*mongo.DeleteResult, error) {
 }
 
 //UpdateCollection : Update Documents in a Collection
-func UpdateCollection(Coll string, IDDist int, request bson.M) (*mongo.UpdateResult, error) {
+func UpdateCollection(Coll string, IDDist int, request bson.M, CONNECTIONSTRING string, DB string) (*mongo.UpdateResult, error) {
 
-	databaseInstance, err := GetMongoClient()
+	databaseInstance, err := GetMongoClient(CONNECTIONSTRING, DB)
 	if err != nil {
 		clientInstanceError = err
 	}
@@ -245,9 +242,9 @@ func UpdateCollection(Coll string, IDDist int, request bson.M) (*mongo.UpdateRes
 }
 
 //RemoveAllCollection : Remove All Documents in a Collection
-func RemoveAllCollection(Coll string) (*mongo.DeleteResult, error) {
+func RemoveAllCollection(Coll string, CONNECTIONSTRING string, DB string) (*mongo.DeleteResult, error) {
 
-	databaseInstance, err := GetMongoClient()
+	databaseInstance, err := GetMongoClient(CONNECTIONSTRING, DB)
 	if err != nil {
 		clientInstanceError = err
 	}
@@ -266,9 +263,9 @@ func RemoveAllCollection(Coll string) (*mongo.DeleteResult, error) {
 }
 
 //RemoveReqCollection : Remove Documents  with request in a Collection
-func RemoveReqCollection(Coll string, request bson.M) (*mongo.DeleteResult, error) {
+func RemoveReqCollection(Coll string, request bson.M, CONNECTIONSTRING string, DB string) (*mongo.DeleteResult, error) {
 
-	databaseInstance, err := GetMongoClient()
+	databaseInstance, err := GetMongoClient(CONNECTIONSTRING, DB)
 	if err != nil {
 		clientInstanceError = err
 	}
