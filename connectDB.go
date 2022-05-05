@@ -208,9 +208,9 @@ func RemoveCollection(Coll string, IDDist string, CONNECTIONSTRING string, DB st
 	ctx, _ := context.WithTimeout(context.Background(), 15*time.Second)
 
 	regionCollection := databaseInstance.Collection(Coll)
-	//IDDist1, _ := strconv.Atoi(IDDist)
+	idPrimitive, _ := primitive.ObjectIDFromHex(IDDist)
 
-	result, err := regionCollection.DeleteOne(ctx, bson.M{"_id": IDDist})
+	result, err := regionCollection.DeleteOne(ctx, bson.M{"_id": idPrimitive})
 
 	if err != nil {
 		log.Fatal(err)
