@@ -222,7 +222,7 @@ func RemoveCollection(Coll string, IDDist string, CONNECTIONSTRING string, DB st
 }
 
 //UpdateCollection : Update Documents in a Collection
-func UpdateCollection(Coll string, IDDist int, request bson.M, CONNECTIONSTRING string, DB string) (*mongo.UpdateResult, error) {
+func UpdateCollection(Coll string, IDDist string, request bson.M, CONNECTIONSTRING string, DB string) (*mongo.UpdateResult, error) {
 
 	databaseInstance, err := GetMongoClient(CONNECTIONSTRING, DB)
 	if err != nil {
