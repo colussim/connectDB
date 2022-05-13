@@ -251,7 +251,7 @@ func RemoveAllCollection(Coll string, CONNECTIONSTRING string, DB string) (*mong
 
 	regionCollection := databaseInstance.Collection(Coll)
 
-	result, err := regionCollection.DeleteMany(ctx, bson.D{{}})
+	result, err := regionCollection.DeleteMany(ctx, bson.M{})
 
 	if err != nil {
 		log.Fatal(err)
